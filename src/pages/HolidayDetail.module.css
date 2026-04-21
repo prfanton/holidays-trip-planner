@@ -1,6 +1,6 @@
 :root {
-  --buser-orange: #f26522;
-  --buser-orange-dark: #d4541a;
+  --buser-orange: #F11075;
+  --buser-orange-dark: #c40c62;
   --text-primary: #1a1a1a;
   --text-secondary: #666;
   --text-muted: #999;
@@ -49,11 +49,9 @@
 }
 
 .logo {
-  font-size: 20px;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -1px;
-  font-style: italic;
+  height: 26px;
+  width: auto;
+  display: block;
 }
 
 .main {
@@ -110,12 +108,12 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  background: #fff8f3;
-  border: 1px solid #ffe0cc;
+  background: #fce4ef;
+  border: 1px solid #f9b8d4;
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 13px;
-  color: #7a3a15;
+  color: #7a0e42;
   line-height: 1.4;
 }
 
@@ -244,10 +242,6 @@
 
 .destCard:hover {
   background: #fafafa;
-  margin: 0 -16px;
-  padding-left: 16px;
-  padding-right: 16px;
-  width: calc(100% + 32px);
 }
 
 .destInfo {
@@ -269,6 +263,19 @@
   background: #f0f0f0;
   padding: 1px 6px;
   border-radius: 4px;
+}
+
+.destRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.destPrice {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--buser-orange);
+  white-space: nowrap;
 }
 
 .destArrow {

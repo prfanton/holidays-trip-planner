@@ -1,6 +1,6 @@
 :root {
-  --buser-orange: #f26522;
-  --buser-orange-dark: #d4541a;
+  --buser-orange: #F11075;
+  --buser-orange-dark: #c40c62;
   --text-primary: #1a1a1a;
   --text-secondary: #666;
   --text-muted: #999;
@@ -32,11 +32,9 @@
 }
 
 .logo {
-  font-size: 22px;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -1px;
-  font-style: italic;
+  height: 28px;
+  width: auto;
+  display: block;
 }
 
 .title {
@@ -115,7 +113,7 @@
   flex-direction: column;
   align-items: center;
   min-width: 38px;
-  background: #fff3ed;
+  background: #fce4ef;
   border-radius: 8px;
   padding: 6px 8px;
 }
@@ -210,7 +208,7 @@
   font-size: 11px;
   font-weight: 600;
   color: var(--buser-orange);
-  background: #fff3ed;
+  background: #fce4ef;
   padding: 2px 8px;
   border-radius: 20px;
 }
