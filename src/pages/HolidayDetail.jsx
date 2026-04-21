@@ -149,10 +149,13 @@ export default function HolidayDetail() {
                     <span className={styles.destName}>{dest.name}</span>
                     <span className={styles.destState}>{dest.state}</span>
                   </div>
-                  <div className={styles.destArrow}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+                  <div className={styles.destRight}>
+                    <span className={styles.destPrice}>a partir de R$ {dest.price}</span>
+                    <div className={styles.destArrow}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </div>
                   </div>
                 </button>
               ))}
