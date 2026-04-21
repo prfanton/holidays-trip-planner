@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { nationalHolidays, stateHolidays, brazilStates } from "../data/holidays";
+import RevealItem from "../components/RevealItem";
 import styles from "./HolidayList.module.css";
 
 const formatDate = (dateStr) => {
@@ -64,6 +65,7 @@ export default function HolidayList() {
       </header>
 
       <main className={styles.main}>
+        <RevealItem>
         <div className={styles.filters}>
           <select
             className={styles.select}
@@ -88,13 +90,16 @@ export default function HolidayList() {
             </select>
           )}
         </div>
+        </RevealItem>
 
         {holidays.length === 0 ? (
           <p className={styles.empty}>Nenhum feriado estadual cadastrado para este estado.</p>
         ) : (
           <div className={styles.list}>
-            {holidays.map((h) => (
-              <HolidayCard key={h.id} holiday={h} onClick={handleSelect} />
+            {holidays.map((h, i) => (
+              <RevealItem key={h.id} delay={i * 40}>
+                <HolidayCard holiday={h} onClick={handleSelect} />
+              </RevealItem>
             ))}
           </div>
         )}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { nationalHolidays, stateHolidays, destinations, originOptions } from "../data/holidays";
+import RevealItem from "../components/RevealItem";
 import styles from "./HolidayDetail.module.css";
 
 const formatDateBR = (dateStr) => {
@@ -65,6 +66,7 @@ export default function HolidayDetail() {
       </header>
 
       <main className={styles.main}>
+        <RevealItem>
         <div className={styles.holidayMeta}>
           <div className={styles.metaLeft}>
             <h1 className={styles.holidayTitle}>{holiday.name}</h1>
@@ -78,16 +80,20 @@ export default function HolidayDetail() {
           </div>
           <span className={`${styles.typeTag} ${styles[`type${holiday.type}`]}`}>{holiday.type}</span>
         </div>
+        </RevealItem>
 
         {holiday.bridge?.tip && (
+          <RevealItem delay={80}>
           <div className={styles.bridgeInfo}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
             </svg>
             {holiday.bridge.tip}
           </div>
+          </RevealItem>
         )}
 
+        <RevealItem delay={120}>
         <section className={styles.searchBox}>
           <h2 className={styles.sectionTitle}>Buscar passagem</h2>
 
@@ -132,35 +138,39 @@ export default function HolidayDetail() {
             </div>
           </div>
         </section>
+        </RevealItem>
 
+        <RevealItem delay={180}>
         <section className={styles.destSection}>
           <h2 className={styles.sectionTitle}>Destinos disponíveis</h2>
           <p className={styles.destSubtitle}>Saindo de {origin.name}</p>
           <div className={styles.destList}>
             {destinations
               .filter((d) => d.slug !== origin.slug)
-              .map((dest) => (
-                <button
-                  key={dest.id}
-                  className={styles.destCard}
-                  onClick={() => handleDestinationSelect(dest)}
-                >
-                  <div className={styles.destInfo}>
-                    <span className={styles.destName}>{dest.name}</span>
-                    <span className={styles.destState}>{dest.state}</span>
-                  </div>
-                  <div className={styles.destRight}>
-                    <span className={styles.destPrice}>a partir de R$ {dest.price}</span>
-                    <div className={styles.destArrow}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                      </svg>
+              .map((dest, i) => (
+                <RevealItem key={dest.id} delay={i * 35}>
+                  <button
+                    className={styles.destCard}
+                    onClick={() => handleDestinationSelect(dest)}
+                  >
+                    <div className={styles.destInfo}>
+                      <span className={styles.destName}>{dest.name}</span>
+                      <span className={styles.destState}>{dest.state}</span>
                     </div>
-                  </div>
-                </button>
+                    <div className={styles.destRight}>
+                      <span className={styles.destPrice}>a partir de R$ {dest.price}</span>
+                      <div className={styles.destArrow}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </button>
+                </RevealItem>
               ))}
           </div>
         </section>
+        </RevealItem>
       </main>
     </div>
   );
