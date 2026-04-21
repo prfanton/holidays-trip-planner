@@ -32,11 +32,9 @@
 }
 
 .logo {
-  font-size: 22px;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -1px;
-  font-style: italic;
+  height: 28px;
+  width: auto;
+  display: block;
 }
 
 .title {

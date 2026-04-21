@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { nationalHolidays, stateHolidays, destinations, originOptions } from "../data/holidays";
 import RevealItem from "../components/RevealItem";
+import logoImg from "../assets/logo.png";
 import styles from "./HolidayDetail.module.css";
 
 const formatDateBR = (dateStr) => {
@@ -60,7 +61,7 @@ export default function HolidayDetail() {
             </svg>
           </button>
           <div>
-            <div className={styles.logo}>buser</div>
+            <img src={logoImg} alt="Buser" className={styles.logo} />
           </div>
         </div>
       </header>
