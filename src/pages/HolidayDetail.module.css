@@ -1,0 +1,283 @@
+:root {
+  --buser-orange: #f26522;
+  --buser-orange-dark: #d4541a;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666;
+  --text-muted: #999;
+  --bg: #f5f5f5;
+  --surface: #fff;
+  --border: #e0e0e0;
+  --radius: 10px;
+}
+
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.header {
+  background: var(--buser-orange);
+  padding: 14px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.headerInner {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.backBtn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.backBtn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1px;
+  font-style: italic;
+}
+
+.main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.holidayMeta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.holidayTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.metaDates {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metaSep {
+  color: var(--text-muted);
+}
+
+.typeTag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.typeNacional { background: #e8f4ff; color: #1a6cb0; }
+.typeEstadual { background: #e8fff0; color: #1a7a3c; }
+.typeMunicipal { background: #f5e8ff; color: #6b1a9c; }
+
+.bridgeInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #fff8f3;
+  border: 1px solid #ffe0cc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #7a3a15;
+  line-height: 1.4;
+}
+
+.bridgeInfo svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--buser-orange);
+}
+
+.searchBox {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 14px;
+}
+
+.searchFields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.fieldLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fieldValue {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.originDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.changeBtn {
+  background: none;
+  border: none;
+  color: var(--buser-orange);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.select {
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--surface);
+  cursor: pointer;
+  width: 100%;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--buser-orange);
+}
+
+.destSection {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.destSubtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: -10px 0 14px;
+}
+
+.destList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.destCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background 0.1s;
+  border-radius: 0;
+}
+
+.destCard:last-child {
+  border-bottom: none;
+}
+
+.destCard:hover {
+  background: #fafafa;
+  margin: 0 -16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: calc(100% + 32px);
+}
+
+.destInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.destName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.destState {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: #f0f0f0;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.destArrow {
+  color: var(--buser-orange);
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 40px 20px;
+}
