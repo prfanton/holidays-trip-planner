@@ -16,8 +16,8 @@ const fmt = (dateStr) => {
 function findHoliday(id) {
   const nat = nationalHolidays.find((h) => h.id === id);
   if (nat) return nat;
-  for (const s of Object.values(stateHolidays)) {
-    const found = s.holidays.find((h) => h.id === id);
+  for (const holidays of Object.values(stateHolidays)) {
+    const found = holidays.find((h) => h.id === id);
     if (found) return found;
   }
   return null;
