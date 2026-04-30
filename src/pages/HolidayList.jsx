@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { nationalHolidays, stateHolidays, cityHolidays, brazilCities } from "../data/holidays";
 import RevealItem from "../components/RevealItem";
@@ -143,7 +143,7 @@ export default function HolidayList() {
   const navigate = useNavigate();
   const [selectedCity, setSelectedCity] = useState(null);
 
-  const holidays = getHolidays(selectedCity);
+  const holidays = useMemo(() => getHolidays(selectedCity), [selectedCity]);
 
   return (
     <div className={styles.page}>

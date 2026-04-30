@@ -12,5 +12,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .item { transition: opacity 100ms; transform: none; }
+  .item,
+  .item.visible { transition: opacity 100ms; transform: none; }
 }
