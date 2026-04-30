@@ -1,221 +1,316 @@
-:root {
-  --buser-orange: #F11075;
-  --buser-orange-dark: #c40c62;
-  --text-primary: #1a1a1a;
-  --text-secondary: #666;
-  --text-muted: #999;
-  --bg: #f5f5f5;
-  --surface: #fff;
-  --border: #e0e0e0;
-  --radius: 10px;
-}
-
 .page {
   min-height: 100vh;
-  background: var(--bg);
+  background: var(--canvas);
 }
 
+/* ── Header ── */
 .header {
-  background: var(--buser-orange);
-  padding: 16px 20px;
+  background: var(--surface-card);
+  border-bottom: 1px solid var(--hairline);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
+  box-shadow: var(--shadow-elevation-1);
 }
 
 .headerInner {
   max-width: 600px;
   margin: 0 auto;
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
 }
 
 .logo {
-  height: 28px;
+  height: 24px;
   width: auto;
-  display: block;
 }
 
 .title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
   margin: 0;
 }
 
+/* ── Main ── */
 .main {
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px 16px 40px;
+  padding: 24px 16px 48px;
 }
 
-.filters {
+/* ── Filter area ── */
+.filterArea {
+  margin-bottom: 24px;
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterHint {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── City search ── */
+.searchWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.searchField {
+  display: flex;
+  align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  height: 44px;
+  padding: 0 12px;
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-btn);
+  transition: border-color 200ms var(--ease), box-shadow 200ms var(--ease);
 }
 
-.select {
+.searchField:focus-within {
+  border-color: var(--primary);
+  box-shadow: var(--focus-ring);
+}
+
+.searchFieldOpen {
+  border-radius: var(--radius-btn) var(--radius-btn) 0 0;
+  border-bottom-color: var(--hairline);
+  box-shadow: none;
+}
+
+.searchIcon {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.searchInput {
   flex: 1;
-  min-width: 180px;
-  padding: 10px 14px;
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  font-size: 14px;
-  color: var(--text-primary);
-  background: var(--surface);
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 36px;
-}
-
-.select:focus {
+  border: none;
   outline: none;
-  border-color: var(--buser-orange);
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  min-width: 0;
 }
 
+.searchInput::placeholder {
+  color: var(--muted);
+}
+
+.selectedCity {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.selectedCityName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selectedCityState {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--surface-soft);
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+  transition: color 150ms var(--ease), background 150ms var(--ease);
+}
+
+.clearBtn:hover {
+  color: var(--ink);
+  background: var(--canvas);
+}
+
+/* ── Suggestions dropdown ── */
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--surface-card);
+  border: 1px solid var(--primary);
+  border-top: 1px solid var(--hairline);
+  border-radius: 0 0 var(--radius-btn) var(--radius-btn);
+  box-shadow: var(--shadow-elevation-2);
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  z-index: 30;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.suggestion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 150ms var(--ease);
+  gap: 8px;
+}
+
+.suggestion:hover {
+  background: var(--surface-soft);
+}
+
+.suggestionName {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.suggestionState {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  padding: 1px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* ── Card list ── */
 .list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
+/* ── Holiday card ── */
 .card {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
+  width: 100%;
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
   padding: 16px;
   cursor: pointer;
   text-align: left;
-  width: 100%;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 200ms var(--ease),
+    box-shadow 200ms var(--ease);
 }
 
 .card:hover {
-  border-color: var(--buser-orange);
-  box-shadow: 0 2px 8px rgba(242, 101, 34, 0.12);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevation-2);
 }
 
-.cardHeader {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  margin-bottom: 12px;
+.card:active {
+  transform: translateY(0);
 }
 
-.cardDate {
+.cardInner {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  min-width: 38px;
-  background: #fce4ef;
-  border-radius: 8px;
-  padding: 6px 8px;
+  gap: 4px;
 }
 
-.dateDay {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--buser-orange);
-  line-height: 1;
-}
-
-.dateMonth {
-  font-size: 11px;
-  color: var(--buser-orange);
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.cardInfo {
-  flex: 1;
-}
-
-.cardTop {
+.cardRow {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 2px;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.holidayName {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
+.name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.2;
   flex: 1;
 }
 
 .typeTag {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 20px;
+  color: var(--primary);
+  background: var(--surface-soft);
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
   white-space: nowrap;
   flex-shrink: 0;
+  line-height: 1.7;
+  margin-top: 1px;
 }
 
-.typeNacional {
-  background: #e8f4ff;
-  color: #1a6cb0;
-}
-
-.typeEstadual {
-  background: #e8fff0;
-  color: #1a7a3c;
-}
-
-.typeMunicipal {
-  background: #f5e8ff;
-  color: #6b1a9c;
-}
-
-.dayOfWeek {
+.meta {
   font-size: 12px;
-  color: var(--text-muted);
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.33;
+}
+
+.meta strong {
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .bridgeTip {
   font-size: 12px;
-  color: var(--text-secondary);
-  margin: 6px 0 0;
-  line-height: 1.4;
+  color: var(--muted);
+  line-height: 1.33;
 }
 
 .cardFooter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 10px;
-  border-top: 1px solid var(--border);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--hairline);
 }
 
-.travelDays {
-  font-size: 13px;
-  color: var(--text-secondary);
-}
-
-.travelDays strong {
-  color: var(--text-primary);
-}
-
-.bridgeBadge {
-  font-size: 11px;
+.bridgePill {
+  font-size: 12px;
   font-weight: 600;
-  color: var(--buser-orange);
-  background: #fce4ef;
-  padding: 2px 8px;
-  border-radius: 20px;
+  color: var(--primary);
+  background: var(--surface-soft);
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  line-height: 1.7;
 }
 
-.empty {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 14px;
-  padding: 40px 0;
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  .searchField { transition: none; }
 }

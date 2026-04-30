@@ -5,19 +5,19 @@ import RevealItem from "../components/RevealItem";
 import logoImg from "../assets/logo.png";
 import styles from "./HolidayDetail.module.css";
 
-const formatDateBR = (dateStr) => {
-  const [year, month, day] = dateStr.split("-");
-  const months = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
-  return `${parseInt(day)} ${months[parseInt(month) - 1]}`;
-};
+const MONTHS = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const DEST_INITIAL = 6;
 
-const formatDateInput = (dateStr) => dateStr;
+const fmt = (dateStr) => {
+  const [, m, d] = dateStr.split("-");
+  return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]}`;
+};
 
 function findHoliday(id) {
   const nat = nationalHolidays.find((h) => h.id === id);
   if (nat) return nat;
-  for (const state of Object.values(stateHolidays)) {
-    const found = state.holidays.find((h) => h.id === id);
+  for (const holidays of Object.values(stateHolidays)) {
+    const found = holidays.find((h) => h.id === id);
     if (found) return found;
   }
   return null;
@@ -30,24 +30,28 @@ export default function HolidayDetail() {
 
   const holiday = location.state?.holiday ?? findHoliday(id);
 
-  const defaultOrigin = originOptions[0];
-  const [origin, setOrigin] = useState(defaultOrigin);
+  const [origin, setOrigin] = useState(originOptions[0]);
   const [changingOrigin, setChangingOrigin] = useState(false);
-
-  const departureDate = holiday?.bridge?.days?.[0] ?? holiday?.date;
-  const returnDate = holiday?.bridge?.days?.[holiday.bridge.days.length - 1] ?? holiday?.date;
+  const [showAll, setShowAll] = useState(false);
 
   if (!holiday) {
     return (
       <div className={styles.page}>
         <button className={styles.backBtn} onClick={() => navigate(-1)}>Voltar</button>
-        <p className={styles.empty}>Feriado nao encontrado.</p>
+        <p className={styles.empty}>Feriado não encontrado.</p>
       </div>
     );
   }
 
-  const handleDestinationSelect = (dest) => {
-    const url = `https://www.buser.com.br/onibus/${origin.slug}/${dest.slug}?ida=${departureDate}&volta=${returnDate}`;
+  const days = holiday.bridge?.days ?? [holiday.date];
+  const departure = days[0];
+  const returnDate = days[days.length - 1];
+
+  const filteredDests = destinations.filter((d) => d.slug !== origin.slug);
+  const visibleDests = showAll ? filteredDests : filteredDests.slice(0, DEST_INITIAL);
+
+  const handleSelect = (dest) => {
+    const url = `https://www.buser.com.br/onibus/${origin.slug}/${dest.slug}?ida=${departure}&volta=${returnDate}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
@@ -55,62 +59,52 @@ export default function HolidayDetail() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <button className={styles.backBtn} onClick={() => navigate(-1)}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <button className={styles.backBtn} onClick={() => navigate(-1)} aria-label="Voltar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 5l-7 7 7 7"/>
             </svg>
           </button>
-          <div>
-            <img src={logoImg} alt="Buser" className={styles.logo} />
-          </div>
+          <img src={logoImg} alt="Buser" className={styles.logo} />
+          <div className={styles.headerSpacer} />
         </div>
       </header>
 
       <main className={styles.main}>
+
+        {/* ── Holiday meta ── */}
         <RevealItem>
-        <div className={styles.holidayMeta}>
-          <div className={styles.metaLeft}>
-            <h1 className={styles.holidayTitle}>{holiday.name}</h1>
+          <div className={styles.meta}>
+            <div className={styles.metaRow}>
+              <h1 className={styles.holidayTitle}>{holiday.name}</h1>
+              <span className={styles.typeTag}>{holiday.type}</span>
+            </div>
             <p className={styles.metaDates}>
-              {holiday.bridge?.days?.length > 0
-                ? `${formatDateBR(holiday.bridge.days[0])} — ${formatDateBR(holiday.bridge.days[holiday.bridge.days.length - 1])}`
-                : formatDateBR(holiday.date)}
-              <span className={styles.metaSep}>·</span>
-              <strong>{holiday.travelDays}</strong> {holiday.travelDays === 1 ? "dia" : "dias"}
+              {fmt(departure)}{departure !== returnDate ? ` — ${fmt(returnDate)}` : ""}
+              {" · "}<strong>{holiday.travelDays}</strong> {holiday.travelDays === 1 ? "dia" : "dias"}
             </p>
+            {holiday.bridge?.tip && (
+              <p className={styles.bridgeTip}>{holiday.bridge.tip}</p>
+            )}
           </div>
-          <span className={`${styles.typeTag} ${styles[`type${holiday.type}`]}`}>{holiday.type}</span>
-        </div>
         </RevealItem>
 
-        {holiday.bridge?.tip && (
-          <RevealItem delay={80}>
-          <div className={styles.bridgeInfo}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
-            </svg>
-            {holiday.bridge.tip}
-          </div>
-          </RevealItem>
-        )}
+        {/* ── Search card ── */}
+        <RevealItem delay={80}>
+          <div className={styles.searchCard}>
+            <p className={styles.cardLabel}>Buscar passagem</p>
 
-        <RevealItem delay={120}>
-        <section className={styles.searchBox}>
-          <h2 className={styles.sectionTitle}>Buscar passagem</h2>
-
-          <div className={styles.searchFields}>
             <div className={styles.fieldGroup}>
-              <label className={styles.fieldLabel}>Origem</label>
+              <span className={styles.fieldLabel}>Origem</span>
               {changingOrigin ? (
                 <select
-                  className={styles.select}
+                  className={styles.fieldSelect}
                   value={origin.id}
+                  autoFocus
                   onChange={(e) => {
                     const found = originOptions.find((o) => o.id === e.target.value);
                     if (found) setOrigin(found);
                     setChangingOrigin(false);
                   }}
-                  autoFocus
                   onBlur={() => setChangingOrigin(false)}
                 >
                   {originOptions.map((o) => (
@@ -118,7 +112,7 @@ export default function HolidayDetail() {
                   ))}
                 </select>
               ) : (
-                <div className={styles.originDisplay}>
+                <div className={styles.fieldRow}>
                   <span className={styles.fieldValue}>{origin.name}</span>
                   <button className={styles.changeBtn} onClick={() => setChangingOrigin(true)}>
                     alterar
@@ -127,51 +121,54 @@ export default function HolidayDetail() {
               )}
             </div>
 
-            <div className={styles.fieldRow}>
+            <div className={styles.divider} />
+
+            <div className={styles.dateRow}>
               <div className={styles.fieldGroup}>
-                <label className={styles.fieldLabel}>Ida</label>
-                <span className={styles.fieldValue}>{formatDateBR(departureDate)}</span>
+                <span className={styles.fieldLabel}>Ida</span>
+                <span className={styles.fieldValue}>{fmt(departure)}</span>
               </div>
               <div className={styles.fieldGroup}>
-                <label className={styles.fieldLabel}>Volta</label>
-                <span className={styles.fieldValue}>{formatDateBR(returnDate)}</span>
+                <span className={styles.fieldLabel}>Volta</span>
+                <span className={styles.fieldValue}>{fmt(returnDate)}</span>
               </div>
             </div>
           </div>
-        </section>
         </RevealItem>
 
-        <RevealItem delay={180}>
-        <section className={styles.destSection}>
-          <h2 className={styles.sectionTitle}>Destinos disponíveis</h2>
-          <p className={styles.destSubtitle}>Saindo de {origin.name}</p>
-          <div className={styles.destList}>
-            {destinations
-              .filter((d) => d.slug !== origin.slug)
-              .map((dest, i) => (
-                <RevealItem key={dest.id} delay={i * 35}>
-                  <button
-                    className={styles.destCard}
-                    onClick={() => handleDestinationSelect(dest)}
-                  >
-                    <div className={styles.destInfo}>
+        {/* ── Destinations ── */}
+        <RevealItem delay={160}>
+          <div className={styles.destSection}>
+            <p className={styles.cardLabel}>Destinos disponíveis</p>
+            <p className={styles.destSubtitle}>Saindo de {origin.name}</p>
+
+            <div className={styles.destList}>
+              {visibleDests.map((dest, i) => (
+                <RevealItem key={dest.id} delay={i * 30}>
+                  <button className={styles.destRow} onClick={() => handleSelect(dest)}>
+                    <div className={styles.destLeft}>
                       <span className={styles.destName}>{dest.name}</span>
                       <span className={styles.destState}>{dest.state}</span>
                     </div>
                     <div className={styles.destRight}>
-                      <span className={styles.destPrice}>a partir de R$ {dest.price}</span>
-                      <div className={styles.destArrow}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                      </div>
+                      <span className={styles.destPrice}>R$ {dest.price}</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.arrow}>
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
                     </div>
                   </button>
                 </RevealItem>
               ))}
+            </div>
+
+            {!showAll && filteredDests.length > DEST_INITIAL && (
+              <button className={styles.seeMoreBtn} onClick={() => setShowAll(true)}>
+                Ver mais destinos ({filteredDests.length - DEST_INITIAL})
+              </button>
+            )}
           </div>
-        </section>
         </RevealItem>
+
       </main>
     </div>
   );
