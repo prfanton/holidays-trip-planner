@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { nationalHolidays, stateHolidays, brazilStates } from "../data/holidays";
 import RevealItem from "../components/RevealItem";
+import logoImg from "../assets/logo.png";
 import styles from "./HolidayList.module.css";
 
 const formatDate = (dateStr) => {
@@ -59,7 +60,7 @@ export default function HolidayList() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <div className={styles.logo}>buser</div>
+          <img src={logoImg} alt="Buser" className={styles.logo} />
           <h1 className={styles.title}>Feriados de 2026</h1>
         </div>
       </header>

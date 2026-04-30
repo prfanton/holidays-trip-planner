@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logoImg from "../assets/logo.png";
 import styles from "./LoadingScreen.module.css";
 
 export default function LoadingScreen() {
@@ -16,7 +17,7 @@ export default function LoadingScreen() {
   return (
     <div className={`${styles.overlay} ${hiding ? styles.hiding : ""}`}>
       <div className={styles.content}>
-        <div className={styles.logo}>buser</div>
+        <img src={logoImg} alt="Buser" className={styles.logo} />
         <div className={styles.spinner} />
       </div>
     </div>
