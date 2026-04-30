@@ -1,11 +1,16 @@
 .item {
   opacity: 0;
   transform: translateY(18px);
-  transition: opacity 0.42s ease, transform 0.42s ease;
+  transition: opacity 0.42s var(--ease, ease), transform 0.42s var(--ease, ease);
   will-change: opacity, transform;
+  width: 100%;
 }
 
 .visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item { transition: opacity 100ms; transform: none; }
 }

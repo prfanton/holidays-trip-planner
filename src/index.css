@@ -1,28 +1,54 @@
-*, *::before, *::after {
-  box-sizing: border-box;
+:root {
+  /* Brand */
+  --primary:         #f11075;
+  --primary-active:  #e6006a;
+  --primary-pressed: #b00051;
+
+  /* Text */
+  --ink:        #454545;
+  --muted:      #757575;
+  --muted-soft: #c1c1c1;
+
+  /* Surfaces */
+  --canvas:       #fafafa;
+  --surface-card: #ffffff;
+  --surface-soft: #fff7fa;
+  --surface-strong: #f6f0eb;
+
+  /* Borders */
+  --hairline: #e0e0e0;
+
+  /* Shadows */
+  --shadow-card:        0 6px 60px rgba(74,63,69,0.06);
+  --shadow-elevation-1: 0 4px 8px rgba(0,0,0,0.10);
+  --shadow-elevation-2: 0 6px 16px rgba(0,0,0,0.10);
+  --focus-ring:         0 0 0 1px rgba(53,190,253,0.502);
+
+  /* Radii */
+  --radius-card: 16px;
+  --radius-btn:  8px;
+  --radius-pill: 500px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: 'Poppins', system-ui, sans-serif;
   font-size: 16px;
+  color: var(--ink);
+  background: var(--canvas);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f5f5f5;
 }
 
-#root {
-  width: 100%;
-}
+#root { width: 100%; }
 
-h1, h2, h3 {
-  margin: 0;
-}
+h1, h2, h3 { margin: 0; }
+p { margin: 0; }
+button { font-family: inherit; }
 
-p {
-  margin: 0;
-}
-
-button {
-  font-family: inherit;
-}
+strong { font-weight: 600; }
