@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { nationalHolidays, stateHolidays, destinations, originOptions } from "../data/holidays";
 import RevealItem from "../components/RevealItem";
@@ -9,8 +9,8 @@ const MONTHS = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov
 const DEST_INITIAL = 6;
 
 const fmt = (dateStr) => {
-  const [, m, d] = dateStr.split("-");
-  return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]}`;
+  const [y, m, d] = dateStr.split("-");
+  return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]} ${y}`;
 };
 
 function findHoliday(id) {
@@ -34,10 +34,30 @@ export default function HolidayDetail() {
   const [changingOrigin, setChangingOrigin] = useState(false);
   const [showAll, setShowAll] = useState(false);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    if (!holiday) return;
+    document.title = `${holiday.name} — Buser`;
+    return () => { document.title = "Feriados de 2026 — Buser"; };
+  }, [holiday]);
+
   if (!holiday) {
     return (
       <div className={styles.page}>
-        <button className={styles.backBtn} onClick={() => navigate(-1)}>Voltar</button>
+        <header className={styles.header}>
+          <div className={styles.headerInner}>
+            <button className={styles.backBtn} onClick={() => navigate("/")} aria-label="Voltar para lista de feriados">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+              </svg>
+            </button>
+            <img src={logoImg} alt="Buser" className={styles.logo} />
+            <div className={styles.headerSpacer} />
+          </div>
+        </header>
         <p className={styles.empty}>Feriado não encontrado.</p>
       </div>
     );
@@ -60,7 +80,7 @@ export default function HolidayDetail() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <button className={styles.backBtn} onClick={() => navigate(-1)} aria-label="Voltar">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M19 12H5M12 5l-7 7 7 7"/>
             </svg>
           </button>
@@ -115,7 +135,7 @@ export default function HolidayDetail() {
                 <div className={styles.fieldRow}>
                   <span className={styles.fieldValue}>{origin.name}</span>
                   <button className={styles.changeBtn} onClick={() => setChangingOrigin(true)}>
-                    alterar
+                    Alterar
                   </button>
                 </div>
               )}
@@ -144,15 +164,19 @@ export default function HolidayDetail() {
 
             <div className={styles.destList}>
               {visibleDests.map((dest, i) => (
-                <RevealItem key={dest.id} delay={i * 30}>
-                  <button className={styles.destRow} onClick={() => handleSelect(dest)}>
+                <RevealItem key={dest.id} delay={Math.min(i * 30, 120)}>
+                  <button
+                    className={styles.destRow}
+                    onClick={() => handleSelect(dest)}
+                    aria-label={`Ver passagens para ${dest.name}, ${dest.state}`}
+                  >
                     <div className={styles.destLeft}>
                       <span className={styles.destName}>{dest.name}</span>
                       <span className={styles.destState}>{dest.state}</span>
                     </div>
                     <div className={styles.destRight}>
                       <span className={styles.destPrice}>R$ {dest.price}</span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.arrow}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.arrow} aria-hidden="true">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                       </svg>
                     </div>

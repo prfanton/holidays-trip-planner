@@ -7,7 +7,7 @@
 .header {
   background: var(--surface-card);
   border-bottom: 1px solid var(--hairline);
-  padding: 0 20px;
+  padding: 0 16px;
   height: 60px;
   display: flex;
   align-items: center;
@@ -43,6 +43,12 @@
   max-width: 600px;
   margin: 0 auto;
   padding: 24px 16px 48px;
+}
+
+/* Elevate filter section above card stacking contexts created by will-change */
+.filterWrapper {
+  position: relative;
+  z-index: 2;
 }
 
 /* ── Filter area ── */
@@ -138,6 +144,7 @@
   flex-shrink: 0;
 }
 
+/* min-width/height gives 44px touch target; negative margin prevents layout shift */
 .clearBtn {
   background: none;
   border: none;
@@ -146,7 +153,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  margin-right: -10px;
   border-radius: var(--radius-pill);
   flex-shrink: 0;
   transition: color 150ms var(--ease), background 150ms var(--ease);
@@ -155,6 +164,11 @@
 .clearBtn:hover {
   color: var(--ink);
   background: var(--canvas);
+}
+
+.clearBtn:active {
+  background: var(--hairline);
+  color: var(--ink);
 }
 
 /* ── Suggestions dropdown ── */
@@ -181,6 +195,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  min-height: 44px;
   padding: 10px 14px;
   border: none;
   background: none;
@@ -190,8 +205,19 @@
   gap: 8px;
 }
 
-.suggestion:hover {
+.suggestion:hover,
+.suggestionActive {
   background: var(--surface-soft);
+}
+
+.suggestion:active {
+  background: var(--hairline);
+}
+
+.suggestionEmpty {
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--muted);
 }
 
 .suggestionName {
@@ -216,6 +242,9 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* ── Holiday card ── */
@@ -240,6 +269,7 @@
 
 .card:active {
   transform: translateY(0);
+  box-shadow: var(--shadow-card);
 }
 
 .cardInner {
@@ -313,4 +343,6 @@
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
   .searchField { transition: none; }
+  .suggestion { transition: none; }
+  .clearBtn { transition: none; }
 }
