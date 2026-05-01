@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { nationalHolidays, stateHolidays, destinations, originOptions } from "../data/holidays";
 import RevealItem from "../components/RevealItem";
-import logoImg from "../assets/logo.png";
+import logoImg from "../assets/logo.svg";
 import styles from "./HolidayDetail.module.css";
 
 const MONTHS = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];

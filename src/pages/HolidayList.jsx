@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { nationalHolidays, stateHolidays, cityHolidays, brazilCities } from "../data/holidays";
 import RevealItem from "../components/RevealItem";
-import logoImg from "../assets/logo.png";
+import logoImg from "../assets/logo.svg";
 import styles from "./HolidayList.module.css";
 
 const MONTHS = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
