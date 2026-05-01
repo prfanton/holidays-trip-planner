@@ -2,23 +2,22 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { nationalHolidays, stateHolidays, cityHolidays, brazilCities } from "../data/holidays";
 import RevealItem from "../components/RevealItem";
-import logoImg from "../assets/logo.png";
+import logoImg from "../assets/logo.svg";
 import styles from "./HolidayList.module.css";
 
 const MONTHS = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
 const MAX_SUGGESTIONS = 8;
 
 function formatDate(dateStr) {
-  const [, m, d] = dateStr.split("-");
-  return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]}`;
+  const [y, m, d] = dateStr.split("-");
+  return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]} ${y}`;
 }
 
 function getHolidays(city) {
   const national = nationalHolidays;
   const state = city ? (stateHolidays[city.state] ?? []) : [];
   const municipal = city ? (cityHolidays[city.id] ?? []) : [];
-  const all = [...national, ...state, ...municipal];
-  return all.sort((a, b) => a.date.localeCompare(b.date));
+  return [...national, ...state, ...municipal].sort((a, b) => a.date.localeCompare(b.date));
 }
 
 function normalize(str) {
@@ -29,6 +28,7 @@ function normalize(str) {
 function CitySearch({ selected, onSelect, onClear }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -36,6 +36,7 @@ function CitySearch({ selected, onSelect, onClear }) {
     function handleClick(e) {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
         setOpen(false);
+        setActiveIndex(-1);
       }
     }
     document.addEventListener("mousedown", handleClick);
@@ -53,19 +54,42 @@ function CitySearch({ selected, onSelect, onClear }) {
     onSelect(city);
     setQuery("");
     setOpen(false);
+    setActiveIndex(-1);
   }
 
   function handleClear() {
     onClear();
     setQuery("");
     setOpen(false);
+    setActiveIndex(-1);
     setTimeout(() => inputRef.current?.focus(), 50);
   }
 
+  function handleKeyDown(e) {
+    if (e.key === "Escape") {
+      setOpen(false);
+      setActiveIndex(-1);
+      return;
+    }
+    if (!open || suggestions.length === 0) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveIndex((i) => Math.min(i + 1, suggestions.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIndex((i) => Math.max(i - 1, 0));
+    } else if (e.key === "Enter" && activeIndex >= 0) {
+      e.preventDefault();
+      handleSelect(suggestions[activeIndex]);
+    }
+  }
+
+  const showDropdown = open && query.length >= 1;
+
   return (
     <div className={styles.searchWrapper} ref={wrapperRef}>
-      <div className={`${styles.searchField} ${open && suggestions.length ? styles.searchFieldOpen : ""}`}>
-        <svg className={styles.searchIcon} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <div className={`${styles.searchField} ${showDropdown ? styles.searchFieldOpen : ""}`}>
+        <svg className={styles.searchIcon} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
         {selected ? (
@@ -79,31 +103,46 @@ function CitySearch({ selected, onSelect, onClear }) {
             className={styles.searchInput}
             placeholder="Buscar cidade..."
             value={query}
-            onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
+            onChange={(e) => { setQuery(e.target.value); setOpen(true); setActiveIndex(-1); }}
             onFocus={() => setOpen(true)}
+            onKeyDown={handleKeyDown}
             autoComplete="off"
             spellCheck={false}
+            role="combobox"
+            aria-expanded={showDropdown}
+            aria-controls="city-suggestions"
+            aria-haspopup="listbox"
+            aria-autocomplete="list"
+            aria-activedescendant={activeIndex >= 0 ? `suggestion-${activeIndex}` : undefined}
           />
         )}
         {selected && (
-          <button className={styles.clearBtn} onClick={handleClear} aria-label="Limpar cidade">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+          <button className={styles.clearBtn} onClick={handleClear} aria-label="Limpar cidade selecionada">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
               <path d="M18 6 6 18M6 6l12 12"/>
             </svg>
           </button>
         )}
       </div>
 
-      {open && suggestions.length > 0 && (
-        <ul className={styles.suggestions} role="listbox">
-          {suggestions.map((city) => (
-            <li key={city.id} role="option">
-              <button className={styles.suggestion} onClick={() => handleSelect(city)}>
+      {showDropdown && (
+        <ul id="city-suggestions" className={styles.suggestions} role="listbox" aria-label="Cidades sugeridas">
+          {suggestions.length > 0 ? suggestions.map((city, i) => (
+            <li key={city.id} role="option" aria-selected={i === activeIndex} id={`suggestion-${i}`}>
+              <button
+                className={`${styles.suggestion} ${i === activeIndex ? styles.suggestionActive : ""}`}
+                onClick={() => handleSelect(city)}
+                tabIndex={-1}
+              >
                 <span className={styles.suggestionName}>{city.name}</span>
                 <span className={styles.suggestionState}>{city.state}</span>
               </button>
             </li>
-          ))}
+          )) : (
+            <li className={styles.suggestionEmpty} role="option" aria-selected={false}>
+              Nenhuma cidade encontrada
+            </li>
+          )}
         </ul>
       )}
     </div>
@@ -113,7 +152,11 @@ function CitySearch({ selected, onSelect, onClear }) {
 // ── Holiday card ─────────────────────────────────────────────
 function HolidayCard({ holiday, onClick }) {
   return (
-    <button className={styles.card} onClick={() => onClick(holiday)}>
+    <button
+      className={styles.card}
+      onClick={() => onClick(holiday)}
+      aria-label={`Ver detalhes de ${holiday.name}`}
+    >
       <div className={styles.cardInner}>
         <div className={styles.cardRow}>
           <span className={styles.name}>{holiday.name}</span>
@@ -145,6 +188,18 @@ export default function HolidayList() {
 
   const holidays = useMemo(() => getHolidays(selectedCity), [selectedCity]);
 
+  // Save and restore scroll position across navigation
+  useEffect(() => {
+    const saved = sessionStorage.getItem("listScroll");
+    if (saved) {
+      requestAnimationFrame(() => window.scrollTo(0, parseInt(saved, 10)));
+      sessionStorage.removeItem("listScroll");
+    }
+    return () => {
+      sessionStorage.setItem("listScroll", String(window.scrollY));
+    };
+  }, []);
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -155,34 +210,38 @@ export default function HolidayList() {
       </header>
 
       <main className={styles.main}>
-        <RevealItem>
-          <div className={styles.filterArea}>
-            <CitySearch
-              selected={selectedCity}
-              onSelect={setSelectedCity}
-              onClear={() => setSelectedCity(null)}
-            />
-            {selectedCity ? (
-              <p className={styles.filterHint}>
-                Exibindo feriados nacionais, estaduais de {selectedCity.state} e municipais de {selectedCity.name}
-              </p>
-            ) : (
-              <p className={styles.filterHint}>
-                Busque uma cidade para incluir os feriados estaduais e municipais
-              </p>
-            )}
-          </div>
-        </RevealItem>
-
-        <div className={styles.list}>
-          {holidays.map((h, i) => (
-            <RevealItem key={h.id} delay={i * 40}>
-              <HolidayCard holiday={h} onClick={(hol) =>
-                navigate(`/feriado/${hol.id}`, { state: { holiday: hol } })
-              } />
-            </RevealItem>
-          ))}
+        <div className={styles.filterWrapper}>
+          <RevealItem>
+            <div className={styles.filterArea}>
+              <CitySearch
+                selected={selectedCity}
+                onSelect={setSelectedCity}
+                onClear={() => setSelectedCity(null)}
+              />
+              {selectedCity ? (
+                <p className={styles.filterHint}>
+                  Exibindo feriados nacionais, estaduais de {selectedCity.state} e municipais de {selectedCity.name}
+                </p>
+              ) : (
+                <p className={styles.filterHint}>
+                  Busque uma cidade para incluir os feriados estaduais e municipais
+                </p>
+              )}
+            </div>
+          </RevealItem>
         </div>
+
+        <ul className={styles.list}>
+          {holidays.map((h, i) => (
+            <li key={h.id}>
+              <RevealItem delay={Math.min(i * 40, 200)}>
+                <HolidayCard holiday={h} onClick={(hol) =>
+                  navigate(`/feriado/${hol.id}`, { state: { holiday: hol } })
+                } />
+              </RevealItem>
+            </li>
+          ))}
+        </ul>
       </main>
     </div>
   );

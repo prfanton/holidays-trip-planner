@@ -7,7 +7,7 @@
 .header {
   background: var(--surface-card);
   border-bottom: 1px solid var(--hairline);
-  padding: 0 20px;
+  padding: 0 16px;
   height: 60px;
   display: flex;
   align-items: center;
@@ -27,8 +27,8 @@
 }
 
 .backBtn {
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--hairline);
   border-radius: var(--radius-pill);
   background: var(--canvas);
@@ -42,8 +42,11 @@
 }
 
 .backBtn:hover {
-  background: var(--surface-strong);
-  border-color: var(--hairline);
+  background: var(--surface-soft);
+}
+
+.backBtn:active {
+  background: var(--hairline);
 }
 
 .logo {
@@ -52,7 +55,7 @@
 }
 
 .headerSpacer {
-  width: 34px;
+  width: 44px;
 }
 
 /* ── Main ── */
@@ -145,11 +148,11 @@
 }
 
 .fieldLabel {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 
 .fieldValue {
@@ -192,12 +195,22 @@
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  padding: 0;
-  transition: color 200ms var(--ease);
+  padding: 6px 10px;
+  border-radius: var(--radius-btn);
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 200ms var(--ease), background 200ms var(--ease);
 }
 
 .changeBtn:hover {
   color: var(--primary-pressed);
+  background: var(--surface-soft);
+}
+
+.changeBtn:active {
+  color: var(--primary-pressed);
+  background: var(--hairline);
 }
 
 .divider {
@@ -230,7 +243,8 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 13px 0;
+  min-height: 44px;
+  padding: 14px 0;
   border: none;
   border-bottom: 1px solid var(--hairline);
   background: none;
@@ -244,7 +258,11 @@
 }
 
 .destRow:hover {
-  background: var(--surface-soft);
+  background: var(--canvas);
+}
+
+.destRow:active {
+  background: var(--hairline);
 }
 
 .destLeft {
@@ -305,6 +323,10 @@
   color: var(--primary-pressed);
 }
 
+.seeMoreBtn:active {
+  color: var(--primary-pressed);
+}
+
 .empty {
   text-align: center;
   color: var(--muted);
@@ -313,5 +335,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .backBtn, .changeBtn, .destRow, .seeMoreBtn { transition: none; }
+  .backBtn,
+  .changeBtn,
+  .destRow,
+  .seeMoreBtn { transition: none; }
 }
