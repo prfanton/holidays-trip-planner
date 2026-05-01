@@ -13,11 +13,18 @@ function formatDate(dateStr) {
   return `${parseInt(d)} ${MONTHS[parseInt(m) - 1]} ${y}`;
 }
 
+const TODAY = new Date().toISOString().slice(0, 10);
+
 function getHolidays(city) {
-  const national = nationalHolidays;
-  const state = city ? (stateHolidays[city.state] ?? []) : [];
-  const municipal = city ? (cityHolidays[city.id] ?? []) : [];
-  return [...national, ...state, ...municipal].sort((a, b) => a.date.localeCompare(b.date));
+  if (!city) return [];
+  const all = [
+    ...nationalHolidays,
+    ...(stateHolidays[city.state] ?? []),
+    ...(cityHolidays[city.id] ?? []),
+  ];
+  return all
+    .filter((h) => (h.endDate ?? h.date) >= TODAY)
+    .sort((a, b) => a.date.localeCompare(b.date));
 }
 
 function normalize(str) {
@@ -218,30 +225,37 @@ export default function HolidayList() {
                 onSelect={setSelectedCity}
                 onClear={() => setSelectedCity(null)}
               />
-              {selectedCity ? (
+              {selectedCity && (
                 <p className={styles.filterHint}>
-                  Exibindo feriados nacionais, estaduais de {selectedCity.state} e municipais de {selectedCity.name}
-                </p>
-              ) : (
-                <p className={styles.filterHint}>
-                  Busque uma cidade para incluir os feriados estaduais e municipais
+                  Feriados nacionais, estaduais de {selectedCity.state} e municipais de {selectedCity.name}
                 </p>
               )}
             </div>
           </RevealItem>
         </div>
 
-        <ul className={styles.list}>
-          {holidays.map((h, i) => (
-            <li key={h.id}>
-              <RevealItem delay={Math.min(i * 40, 200)}>
-                <HolidayCard holiday={h} onClick={(hol) =>
-                  navigate(`/feriado/${hol.id}`, { state: { holiday: hol } })
-                } />
-              </RevealItem>
-            </li>
-          ))}
-        </ul>
+        {selectedCity ? (
+          <ul className={styles.list}>
+            {holidays.map((h, i) => (
+              <li key={h.id}>
+                <RevealItem delay={Math.min(i * 40, 200)}>
+                  <HolidayCard holiday={h} onClick={(hol) =>
+                    navigate(`/feriado/${hol.id}`, { state: { holiday: hol } })
+                  } />
+                </RevealItem>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <RevealItem>
+            <div className={styles.emptyState}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+              </svg>
+              <p>Busque sua cidade para ver os feriados disponíveis</p>
+            </div>
+          </RevealItem>
+        )}
       </main>
     </div>
   );

@@ -237,6 +237,23 @@
   flex-shrink: 0;
 }
 
+/* ── Empty state ── */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 24px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.emptyState p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
 /* ── Card list ── */
 .list {
   display: flex;
