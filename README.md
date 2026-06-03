@@ -1,16 +1,28 @@
-# React + Vite
+# Feriados de 2026 — Buser
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Plan your trips around Brazil's 2026 holidays. Search by city to see national, state, and municipal holidays, spot long-weekend opportunities, and jump straight to Buser bus tickets for your chosen destination.
 
-Currently, two official plugins are available:
+**[→ Open the app](https://prfanton.github.io/holidays-trip-planner/)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **City search** — autocomplete across Brazilian cities; filters the holiday list to show national + state + municipal holidays for the selected city
+- **Upcoming holidays only** — past holidays are automatically excluded
+- **Bridge weekend tips** — flags holidays where an extra day off turns a short break into a 4-day trip, with a plain-language tip explaining the bridge
+- **Holiday detail** — shows departure / return dates, travel days, and bridge tip for the selected holiday
+- **Destination search** — lists available Buser routes from a selectable origin city, with starting prices pre-filled
+- **Deep-link to Buser** — clicking a destination opens [buser.com.br](https://www.buser.com.br) with origin, destination, and dates already set
+- **Animated transitions** — page transitions, staggered list reveals, and a loading screen on first visit
 
-## Expanding the ESLint configuration
+## Tech stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+React 19 · React Router 7 · Vite 8 · CSS Modules
+
+## Running locally
+
+```bash
+npm install
+npm run dev
+```
