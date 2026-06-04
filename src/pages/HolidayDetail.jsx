@@ -41,7 +41,7 @@ export default function HolidayDetail() {
   useEffect(() => {
     if (!holiday) return;
     document.title = `${holiday.name} — Buser`;
-    return () => { document.title = "Feriados de 2026 — Buser"; };
+    return () => { document.title = "Feriados 2026–2028 — Buser"; };
   }, [holiday]);
 
   if (!holiday) {

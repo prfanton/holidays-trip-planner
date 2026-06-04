@@ -212,7 +212,7 @@ export default function HolidayList() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <img src={logoImg} alt="Buser" className={styles.logo} />
-          <h1 className={styles.title}>Feriados de 2026</h1>
+          <h1 className={styles.title}>Feriados 2026–2028</h1>
         </div>
       </header>
 
