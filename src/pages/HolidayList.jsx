@@ -315,9 +315,36 @@ function ViewToggle({ view, onChange }) {
 export default function HolidayList() {
   const navigate = useNavigate();
   const [selectedCity, setSelectedCity] = useState(null);
+  const [autoDetected, setAutoDetected] = useState(false);
   const [view, setView] = useState("calendar");
 
   const holidays = useMemo(() => getHolidays(selectedCity), [selectedCity]);
+
+  // Auto-detect city from IP geolocation on first load
+  useEffect(() => {
+    const alreadySet = sessionStorage.getItem("listScroll");
+    // Only auto-detect if user hasn't navigated back with a city already set
+    if (alreadySet) return;
+    const controller = new AbortController();
+    fetch("https://ipapi.co/json/", { signal: controller.signal })
+      .then((r) => r.json())
+      .then((data) => {
+        if (!data.city || !data.region_code) return;
+        const cityName = normalize(data.city);
+        const regionCode = data.region_code.toUpperCase();
+        const match = brazilCities.find(
+          (c) => c.state === regionCode && normalize(c.name).includes(cityName)
+        ) ?? brazilCities.find(
+          (c) => c.state === regionCode && cityName.includes(normalize(c.name))
+        );
+        if (match) {
+          setSelectedCity(match);
+          setAutoDetected(true);
+        }
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
 
   // Save and restore scroll position across navigation
   useEffect(() => {
@@ -351,10 +378,19 @@ export default function HolidayList() {
             <div className={styles.filterArea}>
               <CitySearch
                 selected={selectedCity}
-                onSelect={setSelectedCity}
-                onClear={() => setSelectedCity(null)}
+                onSelect={(city) => { setSelectedCity(city); setAutoDetected(false); }}
+                onClear={() => { setSelectedCity(null); setAutoDetected(false); }}
               />
-              {selectedCity && (
+              {selectedCity && autoDetected && (
+                <p className={styles.filterHint}>
+                  <span className={styles.detectedBadge}>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+                    Detectado automaticamente
+                  </span>
+                  {" · "}Feriados nacionais, estaduais de {selectedCity.state} e municipais de {selectedCity.name}
+                </p>
+              )}
+              {selectedCity && !autoDetected && (
                 <p className={styles.filterHint}>
                   Feriados nacionais, estaduais de {selectedCity.state} e municipais de {selectedCity.name}
                 </p>
