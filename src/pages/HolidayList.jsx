@@ -190,7 +190,7 @@ function HolidayCard({ holiday, onClick }) {
 }
 
 // ── Calendar month ────────────────────────────────────────────
-function MonthBlock({ year, month, holidayMap, onHolidayClick }) {
+function MonthBlock({ year, month, holidayDates, travelMap, onHolidayClick }) {
   const firstDow = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -210,18 +210,19 @@ function MonthBlock({ year, month, holidayMap, onHolidayClick }) {
           const mm = String(month + 1).padStart(2, "0");
           const dd = String(day).padStart(2, "0");
           const dateStr = `${year}-${mm}-${dd}`;
-          const dayHolidays = holidayMap[dateStr];
           const isToday = dateStr === TODAY;
           const isPast = dateStr < TODAY;
+          const holiday = travelMap[dateStr];
 
-          if (dayHolidays) {
+          if (holiday) {
+            const isHolidayDate = holidayDates.has(dateStr);
             return (
               <button
                 key={day}
-                className={`${styles.calDay} ${styles.calDayHoliday} ${isPast ? styles.calDayPast : ""}`}
-                onClick={() => onHolidayClick(dayHolidays[0])}
-                title={dayHolidays.map((h) => h.name).join(" · ")}
-                aria-label={dayHolidays.map((h) => h.name).join(", ")}
+                className={`${styles.calDay} ${isHolidayDate ? styles.calDayHoliday : styles.calDayTravel} ${isPast ? styles.calDayPast : ""}`}
+                onClick={() => onHolidayClick(holiday)}
+                title={holiday.name + (isHolidayDate ? "" : ` (${holiday.travelDays} dias)`)}
+                aria-label={holiday.name}
               >
                 {day}
               </button>
@@ -243,13 +244,19 @@ function MonthBlock({ year, month, holidayMap, onHolidayClick }) {
 
 // ── Calendar view ─────────────────────────────────────────────
 function CalendarView({ holidays, onHolidayClick }) {
-  const holidayMap = useMemo(() => {
-    const map = {};
+  // holidayDates: set of actual holiday dates (primary marker)
+  // travelMap: every date in bridge.days → first holiday that covers it (clickable)
+  const { holidayDates, travelMap } = useMemo(() => {
+    const holidayDates = new Set();
+    const travelMap = {};
     for (const h of holidays) {
-      if (!map[h.date]) map[h.date] = [];
-      map[h.date].push(h);
+      holidayDates.add(h.date);
+      const days = h.bridge?.days ?? [h.date];
+      for (const day of days) {
+        if (!travelMap[day]) travelMap[day] = h;
+      }
     }
-    return map;
+    return { holidayDates, travelMap };
   }, [holidays]);
 
   const [startYear, startMonth] = useMemo(() => {
@@ -274,7 +281,8 @@ function CalendarView({ holidays, onHolidayClick }) {
           key={`${year}-${month}`}
           year={year}
           month={month}
-          holidayMap={holidayMap}
+          holidayDates={holidayDates}
+          travelMap={travelMap}
           onHolidayClick={onHolidayClick}
         />
       ))}

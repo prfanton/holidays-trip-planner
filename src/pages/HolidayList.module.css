@@ -507,6 +507,29 @@
   opacity: 0.45;
 }
 
+/* Travel window days (non-holiday dates that are part of a trip) */
+.calDayTravel {
+  background: var(--surface-soft);
+  color: var(--primary);
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: opacity 150ms var(--ease), transform 150ms var(--ease);
+}
+
+.calDayTravel:hover {
+  opacity: 0.75;
+  transform: scale(1.1);
+}
+
+.calDayTravel:active {
+  transform: scale(1);
+}
+
+.calDayTravel.calDayPast {
+  opacity: 0.35;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
   .searchField { transition: none; }
