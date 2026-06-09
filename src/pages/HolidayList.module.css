@@ -18,7 +18,7 @@
 }
 
 .headerInner {
-  max-width: 900px;
+  max-width: 600px;
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -41,7 +41,7 @@
 
 /* ── Main ── */
 .main {
-  max-width: 900px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 24px 16px 48px;
 }
@@ -410,15 +410,9 @@
 
 /* ── Calendar grid ── */
 .calendarGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-}
-
-@media (min-width: 680px) {
-  .calendarGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 /* ── Month block ── */
