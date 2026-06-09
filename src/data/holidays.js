@@ -1,4 +1,5 @@
 export const nationalHolidays = [
+  // ── 2026 ──
   {
     id: "confraternizacao",
     name: "Confraternização Universal",
@@ -108,42 +109,164 @@ export const nationalHolidays = [
     bridge: { possible: false, tip: "Já é sexta — final de semana estendido de 3 dias", days: ["2026-12-25","2026-12-26","2026-12-27"] },
     travelDays: 3,
   },
+
+  // ── 2027 ──
+  {
+    id: "confraternizacao-2027",
+    name: "Confraternização Universal",
+    date: "2027-01-01",
+    dayOfWeek: "Sexta-feira",
+    type: "Nacional",
+    bridge: { possible: false, tip: "Já é sexta — final de semana estendido de 3 dias", days: ["2027-01-01","2027-01-02","2027-01-03"] },
+    travelDays: 3,
+  },
+  {
+    id: "carnaval-2027",
+    name: "Carnaval",
+    date: "2027-02-08",
+    endDate: "2027-02-09",
+    dayOfWeek: "Segunda e Terça-feira",
+    type: "Nacional",
+    bridge: { possible: false, tip: "Sábado ao Carnaval: 4 dias de viagem", days: ["2027-02-06","2027-02-07","2027-02-08","2027-02-09"] },
+    travelDays: 4,
+  },
+  {
+    id: "sexta-santa-2027",
+    name: "Sexta-feira Santa",
+    date: "2027-03-26",
+    dayOfWeek: "Sexta-feira",
+    type: "Nacional",
+    bridge: { possible: false, tip: "Já é sexta — final de semana estendido de 3 dias", days: ["2027-03-26","2027-03-27","2027-03-28"] },
+    travelDays: 3,
+  },
+  {
+    id: "tiradentes-2027",
+    name: "Tiradentes",
+    date: "2027-04-21",
+    dayOfWeek: "Quarta-feira",
+    type: "Nacional",
+    bridge: { possible: false, tip: "Quarta-feira — sem emenda prática", days: ["2027-04-21"] },
+    travelDays: 1,
+  },
+  {
+    id: "trabalho-2027",
+    name: "Dia do Trabalho",
+    date: "2027-05-01",
+    dayOfWeek: "Sábado",
+    type: "Nacional",
+    bridge: { possible: false, tip: "Cai no sábado", days: ["2027-05-01","2027-05-02"] },
+    travelDays: 2,
+  },
+  {
+    id: "corpus-christi-2027",
+    name: "Corpus Christi",
+    date: "2027-05-27",
+    dayOfWeek: "Quinta-feira",
+    type: "Nacional",
+    bridge: { possible: true, tip: "Emende a sexta-feira (28 mai) e aproveite 4 dias", days: ["2027-05-27","2027-05-28","2027-05-29","2027-05-30"] },
+    travelDays: 4,
+  },
+  {
+    id: "independencia-2027",
+    name: "Independência do Brasil",
+    date: "2027-09-07",
+    dayOfWeek: "Terça-feira",
+    type: "Nacional",
+    bridge: { possible: true, tip: "Emende a segunda-feira (6 set) e aproveite 4 dias", days: ["2027-09-04","2027-09-05","2027-09-06","2027-09-07"] },
+    travelDays: 4,
+  },
+  {
+    id: "aparecida-2027",
+    name: "Nossa Senhora Aparecida",
+    date: "2027-10-12",
+    dayOfWeek: "Terça-feira",
+    type: "Nacional",
+    bridge: { possible: true, tip: "Emende a segunda-feira (11 out) e aproveite 4 dias", days: ["2027-10-09","2027-10-10","2027-10-11","2027-10-12"] },
+    travelDays: 4,
+  },
+  {
+    id: "finados-2027",
+    name: "Finados",
+    date: "2027-11-02",
+    dayOfWeek: "Terça-feira",
+    type: "Nacional",
+    bridge: { possible: true, tip: "Emende a segunda-feira (1 nov) e aproveite 4 dias", days: ["2027-10-30","2027-10-31","2027-11-01","2027-11-02"] },
+    travelDays: 4,
+  },
+  {
+    id: "republica-2027",
+    name: "Proclamação da República",
+    date: "2027-11-15",
+    dayOfWeek: "Segunda-feira",
+    type: "Nacional",
+    bridge: { possible: false, tip: "Segunda-feira — final de semana estendido de 3 dias", days: ["2027-11-13","2027-11-14","2027-11-15"] },
+    travelDays: 3,
+  },
+  {
+    id: "consciencia-negra-2027",
+    name: "Consciência Negra",
+    date: "2027-11-20",
+    dayOfWeek: "Sábado",
+    type: "Nacional",
+    bridge: { possible: false, tip: "Cai no sábado", days: ["2027-11-20","2027-11-21"] },
+    travelDays: 2,
+  },
+  {
+    id: "natal-2027",
+    name: "Natal",
+    date: "2027-12-25",
+    dayOfWeek: "Sábado",
+    type: "Nacional",
+    bridge: { possible: false, tip: "Cai no sábado", days: ["2027-12-25","2027-12-26"] },
+    travelDays: 2,
+  },
 ];
 
 // Estadual: aplica a todas as cidades do estado
 export const stateHolidays = {
   SP: [
     { id: "sp-revolucao", name: "Revolução Constitucionalista", date: "2026-07-09", dayOfWeek: "Quinta-feira", type: "Estadual", bridge: { possible: true, tip: "Emende a sexta-feira (10 jul) e aproveite 4 dias", days: ["2026-07-09","2026-07-10","2026-07-11","2026-07-12"] }, travelDays: 4 },
+    { id: "sp-revolucao-2027", name: "Revolução Constitucionalista", date: "2027-07-09", dayOfWeek: "Sexta-feira", type: "Estadual", bridge: { possible: false, tip: "Já é sexta — final de semana estendido de 3 dias", days: ["2027-07-09","2027-07-10","2027-07-11"] }, travelDays: 3 },
   ],
   BA: [
     { id: "ba-independencia", name: "Independência da Bahia", date: "2026-07-02", dayOfWeek: "Quinta-feira", type: "Estadual", bridge: { possible: true, tip: "Emende a sexta-feira (3 jul) e aproveite 4 dias", days: ["2026-07-02","2026-07-03","2026-07-04","2026-07-05"] }, travelDays: 4 },
+    { id: "ba-independencia-2027", name: "Independência da Bahia", date: "2027-07-02", dayOfWeek: "Sexta-feira", type: "Estadual", bridge: { possible: false, tip: "Já é sexta — final de semana estendido de 3 dias", days: ["2027-07-02","2027-07-03","2027-07-04"] }, travelDays: 3 },
   ],
   RS: [
     { id: "rs-farroupilha", name: "Revolução Farroupilha", date: "2026-09-20", dayOfWeek: "Domingo", type: "Estadual", bridge: { possible: false, tip: "Cai no domingo", days: ["2026-09-19","2026-09-20"] }, travelDays: 2 },
+    { id: "rs-farroupilha-2027", name: "Revolução Farroupilha", date: "2027-09-20", dayOfWeek: "Segunda-feira", type: "Estadual", bridge: { possible: false, tip: "Segunda-feira — final de semana estendido de 3 dias", days: ["2027-09-18","2027-09-19","2027-09-20"] }, travelDays: 3 },
   ],
   CE: [
     { id: "ce-abolicao", name: "Abolição da Escravatura no Ceará", date: "2026-03-25", dayOfWeek: "Quarta-feira", type: "Estadual", bridge: { possible: false, tip: "Quarta-feira — sem emenda prática", days: ["2026-03-25"] }, travelDays: 1 },
+    { id: "ce-abolicao-2027", name: "Abolição da Escravatura no Ceará", date: "2027-03-25", dayOfWeek: "Quinta-feira", type: "Estadual", bridge: { possible: true, tip: "Emende com a Sexta Santa (26 mar) e aproveite 4 dias", days: ["2027-03-25","2027-03-26","2027-03-27","2027-03-28"] }, travelDays: 4 },
   ],
   AM: [
     { id: "am-elevacao", name: "Elevação do Amazonas", date: "2026-09-05", dayOfWeek: "Sábado", type: "Estadual", bridge: { possible: false, tip: "Cai no sábado", days: ["2026-09-05","2026-09-06"] }, travelDays: 2 },
+    { id: "am-elevacao-2027", name: "Elevação do Amazonas", date: "2027-09-05", dayOfWeek: "Domingo", type: "Estadual", bridge: { possible: false, tip: "Cai no domingo", days: ["2027-09-05","2027-09-06"] }, travelDays: 2 },
   ],
   MG: [
     { id: "mg-tiradentes-estado", name: "Data Magna de Minas Gerais", date: "2026-04-21", dayOfWeek: "Terça-feira", type: "Estadual", bridge: { possible: true, tip: "Emende a segunda-feira (20 abr) e aproveite 4 dias", days: ["2026-04-18","2026-04-19","2026-04-20","2026-04-21"] }, travelDays: 4 },
+    { id: "mg-tiradentes-estado-2027", name: "Data Magna de Minas Gerais", date: "2027-04-21", dayOfWeek: "Quarta-feira", type: "Estadual", bridge: { possible: false, tip: "Quarta-feira — sem emenda prática", days: ["2027-04-21"] }, travelDays: 1 },
   ],
   PE: [
     { id: "pe-revolucao", name: "Revolução Pernambucana de 1817", date: "2026-03-06", dayOfWeek: "Sexta-feira", type: "Estadual", bridge: { possible: false, tip: "Já é sexta — final de semana estendido de 3 dias", days: ["2026-03-06","2026-03-07","2026-03-08"] }, travelDays: 3 },
+    { id: "pe-revolucao-2027", name: "Revolução Pernambucana de 1817", date: "2027-03-06", dayOfWeek: "Sábado", type: "Estadual", bridge: { possible: false, tip: "Cai no sábado", days: ["2027-03-06","2027-03-07"] }, travelDays: 2 },
   ],
   RJ: [
     { id: "rj-jorge-estado", name: "São Jorge", date: "2026-04-23", dayOfWeek: "Quinta-feira", type: "Estadual", bridge: { possible: true, tip: "Emende a sexta-feira (24 abr) e aproveite 4 dias", days: ["2026-04-23","2026-04-24","2026-04-25","2026-04-26"] }, travelDays: 4 },
+    { id: "rj-jorge-estado-2027", name: "São Jorge", date: "2027-04-23", dayOfWeek: "Sexta-feira", type: "Estadual", bridge: { possible: false, tip: "Já é sexta — final de semana estendido de 3 dias", days: ["2027-04-23","2027-04-24","2027-04-25"] }, travelDays: 3 },
   ],
   SC: [
     { id: "sc-santa-catarina", name: "Dia de Santa Catarina de Alexandria", date: "2026-11-25", dayOfWeek: "Quarta-feira", type: "Estadual", bridge: { possible: false, tip: "Quarta-feira — sem emenda prática", days: ["2026-11-25"] }, travelDays: 1 },
+    { id: "sc-santa-catarina-2027", name: "Dia de Santa Catarina de Alexandria", date: "2027-11-25", dayOfWeek: "Quinta-feira", type: "Estadual", bridge: { possible: true, tip: "Emende a sexta-feira (26 nov) e aproveite 4 dias", days: ["2027-11-25","2027-11-26","2027-11-27","2027-11-28"] }, travelDays: 4 },
   ],
   GO: [
     { id: "go-pedrovii", name: "Aniversário de Goiás", date: "2026-07-26", dayOfWeek: "Domingo", type: "Estadual", bridge: { possible: false, tip: "Cai no domingo", days: ["2026-07-26"] }, travelDays: 1 },
+    { id: "go-pedrovii-2027", name: "Aniversário de Goiás", date: "2027-07-26", dayOfWeek: "Segunda-feira", type: "Estadual", bridge: { possible: false, tip: "Segunda-feira — final de semana estendido de 3 dias", days: ["2027-07-24","2027-07-25","2027-07-26"] }, travelDays: 3 },
   ],
   PR: [
     { id: "pr-emancipacao", name: "Emancipação Política do Paraná", date: "2026-12-19", dayOfWeek: "Sábado", type: "Estadual", bridge: { possible: false, tip: "Cai no sábado", days: ["2026-12-19","2026-12-20"] }, travelDays: 2 },
+    { id: "pr-emancipacao-2027", name: "Emancipação Política do Paraná", date: "2027-12-19", dayOfWeek: "Domingo", type: "Estadual", bridge: { possible: false, tip: "Cai no domingo", days: ["2027-12-19","2027-12-20"] }, travelDays: 2 },
   ],
 };
 
@@ -151,56 +274,75 @@ export const stateHolidays = {
 export const cityHolidays = {
   "sao-paulo-sp": [
     { id: "sp-aniversario-cidade", name: "Aniversário de São Paulo", date: "2026-01-25", dayOfWeek: "Domingo", type: "Municipal", bridge: { possible: false, tip: "Cai no domingo", days: ["2026-01-24","2026-01-25"] }, travelDays: 2 },
+    { id: "sp-aniversario-cidade-2027", name: "Aniversário de São Paulo", date: "2027-01-25", dayOfWeek: "Segunda-feira", type: "Municipal", bridge: { possible: false, tip: "Segunda-feira — final de semana estendido de 3 dias", days: ["2027-01-23","2027-01-24","2027-01-25"] }, travelDays: 3 },
   ],
   "rio-de-janeiro-rj": [
     { id: "rj-sao-sebastiao", name: "São Sebastião", date: "2026-01-20", dayOfWeek: "Terça-feira", type: "Municipal", bridge: { possible: true, tip: "Emende a segunda-feira (19 jan) e aproveite 4 dias", days: ["2026-01-17","2026-01-18","2026-01-19","2026-01-20"] }, travelDays: 4 },
+    { id: "rj-sao-sebastiao-2027", name: "São Sebastião", date: "2027-01-20", dayOfWeek: "Quarta-feira", type: "Municipal", bridge: { possible: false, tip: "Quarta-feira — sem emenda prática", days: ["2027-01-20"] }, travelDays: 1 },
   ],
   "belo-horizonte-mg": [
     { id: "bh-aniversario", name: "Aniversário de Belo Horizonte", date: "2026-12-12", dayOfWeek: "Sábado", type: "Municipal", bridge: { possible: false, tip: "Cai no sábado", days: ["2026-12-12","2026-12-13"] }, travelDays: 2 },
+    { id: "bh-aniversario-2027", name: "Aniversário de Belo Horizonte", date: "2027-12-12", dayOfWeek: "Domingo", type: "Municipal", bridge: { possible: false, tip: "Cai no domingo", days: ["2027-12-12","2027-12-13"] }, travelDays: 2 },
   ],
   "ouro-preto-mg": [
     { id: "op-aniversario", name: "Aniversário de Ouro Preto", date: "2026-07-08", dayOfWeek: "Quarta-feira", type: "Municipal", bridge: { possible: false, tip: "Quarta-feira — sem emenda prática", days: ["2026-07-08"] }, travelDays: 1 },
+    { id: "op-aniversario-2027", name: "Aniversário de Ouro Preto", date: "2027-07-08", dayOfWeek: "Quinta-feira", type: "Municipal", bridge: { possible: true, tip: "Emende com a sexta (9 jul - Revolução SP) e aproveite 4 dias", days: ["2027-07-08","2027-07-09","2027-07-10","2027-07-11"] }, travelDays: 4 },
   ],
   "salvador-ba": [
     { id: "ssa-aniversario", name: "Aniversário de Salvador", date: "2026-03-29", dayOfWeek: "Domingo", type: "Municipal", bridge: { possible: false, tip: "Cai no domingo", days: ["2026-03-29"] }, travelDays: 1 },
+    { id: "ssa-aniversario-2027", name: "Aniversário de Salvador", date: "2027-03-29", dayOfWeek: "Segunda-feira", type: "Municipal", bridge: { possible: false, tip: "Segunda-feira — final de semana estendido de 3 dias (Páscoa)", days: ["2027-03-27","2027-03-28","2027-03-29"] }, travelDays: 3 },
   ],
   "recife-pe": [
     { id: "recife-aniversario", name: "Aniversário do Recife", date: "2026-03-12", dayOfWeek: "Quinta-feira", type: "Municipal", bridge: { possible: true, tip: "Emende a sexta-feira (13 mar) e aproveite 4 dias", days: ["2026-03-12","2026-03-13","2026-03-14","2026-03-15"] }, travelDays: 4 },
     { id: "recife-sao-joao", name: "São João do Recife", date: "2026-06-24", dayOfWeek: "Quarta-feira", type: "Municipal", bridge: { possible: false, tip: "Quarta-feira — sem emenda prática", days: ["2026-06-24"] }, travelDays: 1 },
+    { id: "recife-aniversario-2027", name: "Aniversário do Recife", date: "2027-03-12", dayOfWeek: "Sexta-feira", type: "Municipal", bridge: { possible: false, tip: "Já é sexta — final de semana estendido de 3 dias", days: ["2027-03-12","2027-03-13","2027-03-14"] }, travelDays: 3 },
+    { id: "recife-sao-joao-2027", name: "São João do Recife", date: "2027-06-24", dayOfWeek: "Quinta-feira", type: "Municipal", bridge: { possible: true, tip: "Emende a sexta-feira (25 jun) e aproveite 4 dias", days: ["2027-06-24","2027-06-25","2027-06-26","2027-06-27"] }, travelDays: 4 },
   ],
   "fortaleza-ce": [
     { id: "fortaleza-aniversario", name: "Aniversário de Fortaleza", date: "2026-04-13", dayOfWeek: "Segunda-feira", type: "Municipal", bridge: { possible: false, tip: "Segunda-feira — final de semana estendido de 3 dias", days: ["2026-04-11","2026-04-12","2026-04-13"] }, travelDays: 3 },
+    { id: "fortaleza-aniversario-2027", name: "Aniversário de Fortaleza", date: "2027-04-13", dayOfWeek: "Terça-feira", type: "Municipal", bridge: { possible: true, tip: "Emende a segunda-feira (12 abr) e aproveite 4 dias", days: ["2027-04-10","2027-04-11","2027-04-12","2027-04-13"] }, travelDays: 4 },
   ],
   "manaus-am": [
     { id: "manaus-aniversario", name: "Aniversário de Manaus", date: "2026-10-24", dayOfWeek: "Sábado", type: "Municipal", bridge: { possible: false, tip: "Cai no sábado", days: ["2026-10-24","2026-10-25"] }, travelDays: 2 },
+    { id: "manaus-aniversario-2027", name: "Aniversário de Manaus", date: "2027-10-24", dayOfWeek: "Domingo", type: "Municipal", bridge: { possible: false, tip: "Cai no domingo", days: ["2027-10-24","2027-10-25"] }, travelDays: 2 },
   ],
   "porto-alegre-rs": [
     { id: "poa-aniversario", name: "Aniversário de Porto Alegre", date: "2026-03-26", dayOfWeek: "Quinta-feira", type: "Municipal", bridge: { possible: true, tip: "Emende a sexta-feira (27 mar) e aproveite 4 dias", days: ["2026-03-26","2026-03-27","2026-03-28","2026-03-29"] }, travelDays: 4 },
+    { id: "poa-aniversario-2027", name: "Aniversário de Porto Alegre", date: "2027-03-26", dayOfWeek: "Sexta-feira", type: "Municipal", bridge: { possible: false, tip: "Coincide com a Sexta-feira Santa — final de semana de 3 dias", days: ["2027-03-26","2027-03-27","2027-03-28"] }, travelDays: 3 },
   ],
   "curitiba-pr": [
     { id: "cwb-aniversario", name: "Aniversário de Curitiba", date: "2026-03-29", dayOfWeek: "Domingo", type: "Municipal", bridge: { possible: false, tip: "Cai no domingo", days: ["2026-03-29"] }, travelDays: 1 },
+    { id: "cwb-aniversario-2027", name: "Aniversário de Curitiba", date: "2027-03-29", dayOfWeek: "Segunda-feira", type: "Municipal", bridge: { possible: false, tip: "Segunda-feira — final de semana estendido de 3 dias", days: ["2027-03-27","2027-03-28","2027-03-29"] }, travelDays: 3 },
   ],
   "florianopolis-sc": [
     { id: "fln-aniversario", name: "Aniversário de Florianópolis", date: "2026-03-23", dayOfWeek: "Segunda-feira", type: "Municipal", bridge: { possible: false, tip: "Segunda-feira — final de semana estendido de 3 dias", days: ["2026-03-21","2026-03-22","2026-03-23"] }, travelDays: 3 },
     { id: "fln-nsa-ilha", name: "Nossa Senhora do Desterro", date: "2026-08-15", dayOfWeek: "Sábado", type: "Municipal", bridge: { possible: false, tip: "Cai no sábado", days: ["2026-08-15","2026-08-16"] }, travelDays: 2 },
+    { id: "fln-aniversario-2027", name: "Aniversário de Florianópolis", date: "2027-03-23", dayOfWeek: "Terça-feira", type: "Municipal", bridge: { possible: true, tip: "Emende a segunda-feira (22 mar) e aproveite 4 dias", days: ["2027-03-20","2027-03-21","2027-03-22","2027-03-23"] }, travelDays: 4 },
+    { id: "fln-nsa-ilha-2027", name: "Nossa Senhora do Desterro", date: "2027-08-15", dayOfWeek: "Domingo", type: "Municipal", bridge: { possible: false, tip: "Cai no domingo", days: ["2027-08-15","2027-08-16"] }, travelDays: 2 },
   ],
   "goiania-go": [
     { id: "gyn-aniversario", name: "Aniversário de Goiânia", date: "2026-10-24", dayOfWeek: "Sábado", type: "Municipal", bridge: { possible: false, tip: "Cai no sábado", days: ["2026-10-24","2026-10-25"] }, travelDays: 2 },
+    { id: "gyn-aniversario-2027", name: "Aniversário de Goiânia", date: "2027-10-24", dayOfWeek: "Domingo", type: "Municipal", bridge: { possible: false, tip: "Cai no domingo", days: ["2027-10-24","2027-10-25"] }, travelDays: 2 },
   ],
   "campinas-sp": [
     { id: "cps-aniversario", name: "Aniversário de Campinas", date: "2026-07-14", dayOfWeek: "Terça-feira", type: "Municipal", bridge: { possible: true, tip: "Emende a segunda-feira (13 jul) e aproveite 4 dias", days: ["2026-07-11","2026-07-12","2026-07-13","2026-07-14"] }, travelDays: 4 },
+    { id: "cps-aniversario-2027", name: "Aniversário de Campinas", date: "2027-07-14", dayOfWeek: "Quarta-feira", type: "Municipal", bridge: { possible: false, tip: "Quarta-feira — sem emenda prática", days: ["2027-07-14"] }, travelDays: 1 },
   ],
   "brasilia-df": [
     { id: "bsb-aniversario", name: "Aniversário de Brasília", date: "2026-04-21", dayOfWeek: "Terça-feira", type: "Municipal", bridge: { possible: true, tip: "Emende a segunda-feira (20 abr) e aproveite 4 dias", days: ["2026-04-18","2026-04-19","2026-04-20","2026-04-21"] }, travelDays: 4 },
+    { id: "bsb-aniversario-2027", name: "Aniversário de Brasília", date: "2027-04-21", dayOfWeek: "Quarta-feira", type: "Municipal", bridge: { possible: false, tip: "Quarta-feira — sem emenda prática", days: ["2027-04-21"] }, travelDays: 1 },
   ],
   "natal-rn": [
     { id: "nat-aniversario", name: "Aniversário de Natal", date: "2026-12-25", dayOfWeek: "Sexta-feira", type: "Municipal", bridge: { possible: false, tip: "Já é sexta — final de semana estendido", days: ["2026-12-25","2026-12-26","2026-12-27"] }, travelDays: 3 },
+    { id: "nat-aniversario-2027", name: "Aniversário de Natal", date: "2027-12-25", dayOfWeek: "Sábado", type: "Municipal", bridge: { possible: false, tip: "Cai no sábado", days: ["2027-12-25","2027-12-26"] }, travelDays: 2 },
   ],
   "maceio-al": [
     { id: "mcz-aniversario", name: "Aniversário de Maceió", date: "2026-12-05", dayOfWeek: "Sábado", type: "Municipal", bridge: { possible: false, tip: "Cai no sábado", days: ["2026-12-05","2026-12-06"] }, travelDays: 2 },
+    { id: "mcz-aniversario-2027", name: "Aniversário de Maceió", date: "2027-12-05", dayOfWeek: "Domingo", type: "Municipal", bridge: { possible: false, tip: "Cai no domingo", days: ["2027-12-05","2027-12-06"] }, travelDays: 2 },
   ],
   "joao-pessoa-pb": [
     { id: "jpa-aniversario", name: "Aniversário de João Pessoa", date: "2026-08-05", dayOfWeek: "Quarta-feira", type: "Municipal", bridge: { possible: false, tip: "Quarta-feira — sem emenda prática", days: ["2026-08-05"] }, travelDays: 1 },
+    { id: "jpa-aniversario-2027", name: "Aniversário de João Pessoa", date: "2027-08-05", dayOfWeek: "Quinta-feira", type: "Municipal", bridge: { possible: true, tip: "Emende a sexta-feira (6 ago) e aproveite 4 dias", days: ["2027-08-05","2027-08-06","2027-08-07","2027-08-08"] }, travelDays: 4 },
   ],
 };
 
