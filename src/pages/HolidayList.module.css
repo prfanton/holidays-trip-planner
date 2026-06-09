@@ -18,12 +18,13 @@
 }
 
 .headerInner {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .logo {
@@ -40,7 +41,7 @@
 
 /* ── Main ── */
 .main {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 24px 16px 48px;
 }
@@ -65,6 +66,15 @@
   color: var(--muted);
   margin: 0;
   line-height: 1.4;
+}
+
+.detectedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
 }
 
 /* ── City search ── */
@@ -357,9 +367,151 @@
   line-height: 1.7;
 }
 
+/* ── View toggle ── */
+.viewToggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-btn);
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.viewBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: none;
+  background: none;
+  border-radius: calc(var(--radius-btn) - 2px);
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 150ms var(--ease), color 150ms var(--ease);
+  white-space: nowrap;
+}
+
+.viewBtn:hover {
+  color: var(--ink);
+  background: var(--surface-card);
+}
+
+.viewBtnActive {
+  background: var(--surface-card);
+  color: var(--ink);
+  font-weight: 500;
+  box-shadow: var(--shadow-card);
+}
+
+/* ── Calendar grid ── */
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 680px) {
+  .calendarGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Month block ── */
+.monthBlock {
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  padding: 14px;
+  box-shadow: var(--shadow-card);
+}
+
+.monthTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 10px 0;
+  line-height: 1;
+}
+
+.calDayLabels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.calDayLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  padding: 2px 0;
+}
+
+.calDaysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+
+.calDay {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink);
+  border-radius: 50%;
+  line-height: 1;
+}
+
+.calEmpty {
+  aspect-ratio: 1;
+}
+
+.calDayToday {
+  background: var(--hairline);
+  font-weight: 600;
+}
+
+.calDayPast {
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+.calDayHoliday {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 150ms var(--ease), transform 150ms var(--ease);
+}
+
+.calDayHoliday:hover {
+  opacity: 0.85;
+  transform: scale(1.1);
+}
+
+.calDayHoliday:active {
+  transform: scale(1);
+}
+
+.calDayHoliday.calDayPast {
+  background: var(--muted);
+  opacity: 0.45;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
   .searchField { transition: none; }
   .suggestion { transition: none; }
   .clearBtn { transition: none; }
+  .viewBtn { transition: none; }
+  .calDayHoliday { transition: none; }
 }
