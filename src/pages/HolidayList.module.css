@@ -18,7 +18,7 @@
 }
 
 .headerInner {
-  max-width: 900px;
+  max-width: 600px;
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -41,9 +41,9 @@
 
 /* ── Main ── */
 .main {
-  max-width: 900px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 24px 16px 48px;
+  padding: 24px 16px max(48px, calc(env(safe-area-inset-bottom, 0px) + 24px));
 }
 
 /* Elevate filter section above card stacking contexts created by will-change */
@@ -410,15 +410,9 @@
 
 /* ── Calendar grid ── */
 .calendarGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-}
-
-@media (min-width: 680px) {
-  .calendarGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 /* ── Month block ── */
@@ -530,6 +524,46 @@
   opacity: 0.35;
 }
 
+/* ── Mobile enhancements ── */
+@media (max-width: 479px) {
+  /* Hide title to give header room for logo + toggle */
+  .title {
+    display: none;
+  }
+
+  /* Icon-only toggle on small screens */
+  .viewBtnLabel {
+    display: none;
+  }
+
+  .viewBtn {
+    padding: 6px 10px;
+  }
+
+  /* Prevent iOS auto-zoom on input focus */
+  .searchInput {
+    font-size: 16px;
+  }
+
+  /* Tighter month card on narrow screens = bigger cells */
+  .monthBlock {
+    padding: 12px 8px;
+  }
+
+  .monthTitle {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .calDayLabel {
+    font-size: 11px;
+  }
+
+  .calDay {
+    font-size: 13px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card { transition: none; }
   .searchField { transition: none; }
@@ -537,4 +571,5 @@
   .clearBtn { transition: none; }
   .viewBtn { transition: none; }
   .calDayHoliday { transition: none; }
+  .calDayTravel { transition: none; }
 }
