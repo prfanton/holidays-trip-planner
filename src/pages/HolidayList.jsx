@@ -340,7 +340,6 @@ export default function HolidayList() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <img src={logoImg} alt="Buser" className={styles.logo} />
-          <h1 className={styles.title}>Feriados de 2026</h1>
           <ViewToggle view={view} onChange={setView} />
         </div>
       </header>
@@ -348,6 +347,10 @@ export default function HolidayList() {
       <main className={styles.main}>
         <div className={styles.filterWrapper}>
           <RevealItem>
+            <div className={styles.heroText}>
+              <h1 className={styles.title}>Feriadômetro</h1>
+              <h3 className={styles.subtitle}>Aproveite os feriados ao máximo. Feriados e emendas em 2026</h3>
+            </div>
             <div className={styles.filterArea}>
               <CitySearch
                 selected={selectedCity}

@@ -39,6 +39,25 @@
   margin: 0;
 }
 
+/* ── Hero text (above search) ── */
+.heroText {
+  margin-bottom: 20px;
+}
+
+.heroText .title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin: 6px 0 0;
+}
+
 /* ── Main ── */
 .main {
   max-width: 900px;
