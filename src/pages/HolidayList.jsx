@@ -198,9 +198,19 @@ function MonthBlock({ year, month, holidayMap, onHolidayClick }) {
   for (let i = 0; i < firstDow; i++) cells.push(null);
   for (let d = 1; d <= daysInMonth; d++) cells.push(d);
 
+  const holidayCount = Object.keys(holidayMap).filter((date) => {
+    const [y, m] = date.split("-");
+    return parseInt(y) === year && parseInt(m) - 1 === month;
+  }).length;
+
   return (
     <div className={styles.monthBlock}>
       <h3 className={styles.monthTitle}>{MONTHS_FULL[month]} {year}</h3>
+      <p className={styles.monthMeta}>
+        {holidayCount > 0
+          ? `${holidayCount} ${holidayCount === 1 ? "feriado" : "feriados"}`
+          : "Mês sem feriados, perfeito para fazer bate-volta."}
+      </p>
       <div className={styles.calDayLabels}>
         {DAY_LABELS.map((d) => <span key={d} className={styles.calDayLabel}>{d}</span>)}
       </div>
