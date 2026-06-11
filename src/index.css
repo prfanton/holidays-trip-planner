@@ -45,6 +45,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (min-width: 1024px) {
+  body { font-size: 18px; }
+}
+
 #root { width: 100%; }
 
 h1, h2, h3 { margin: 0; }
