@@ -39,6 +39,25 @@
   margin: 0;
 }
 
+/* ── Hero text (above search) ── */
+.heroText {
+  margin-bottom: 20px;
+}
+
+.heroText .title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin: 6px 0 0;
+}
+
 /* ── Main ── */
 .main {
   max-width: 900px;
@@ -422,11 +441,17 @@
 }
 
 .monthTitle {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--ink);
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.monthMeta {
+  font-size: 0.75rem;
+  color: var(--muted);
   margin: 0 0 10px 0;
-  line-height: 1;
 }
 
 .calDayLabels {

@@ -198,9 +198,19 @@ function MonthBlock({ year, month, holidayMap, onHolidayClick }) {
   for (let i = 0; i < firstDow; i++) cells.push(null);
   for (let d = 1; d <= daysInMonth; d++) cells.push(d);
 
+  const holidayCount = Object.keys(holidayMap).filter((date) => {
+    const [y, m] = date.split("-");
+    return parseInt(y) === year && parseInt(m) - 1 === month;
+  }).length;
+
   return (
     <div className={styles.monthBlock}>
       <h3 className={styles.monthTitle}>{MONTHS_FULL[month]} {year}</h3>
+      <p className={styles.monthMeta}>
+        {holidayCount > 0
+          ? `${holidayCount} ${holidayCount === 1 ? "feriado" : "feriados"}`
+          : "Mês sem feriados, perfeito para fazer bate-volta."}
+      </p>
       <div className={styles.calDayLabels}>
         {DAY_LABELS.map((d) => <span key={d} className={styles.calDayLabel}>{d}</span>)}
       </div>
@@ -340,7 +350,6 @@ export default function HolidayList() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <img src={logoImg} alt="Buser" className={styles.logo} />
-          <h1 className={styles.title}>Feriados de 2026</h1>
           <ViewToggle view={view} onChange={setView} />
         </div>
       </header>
@@ -348,6 +357,10 @@ export default function HolidayList() {
       <main className={styles.main}>
         <div className={styles.filterWrapper}>
           <RevealItem>
+            <div className={styles.heroText}>
+              <h1 className={styles.title}>Feriadômetro</h1>
+              <h3 className={styles.subtitle}>Aproveite os feriados ao máximo. Feriados e emendas em 2026</h3>
+            </div>
             <div className={styles.filterArea}>
               <CitySearch
                 selected={selectedCity}
